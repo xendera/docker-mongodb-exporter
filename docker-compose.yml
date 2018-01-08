@@ -1,0 +1,16 @@
+version: '3'
+services:
+  mongodb-exporter:
+    image: xendera/mongodb-exporter
+    container_name: mongodb-exporter
+    hostname: mongodb-exporter
+    ports:
+      - 9216:9216
+    # You can provide custom params to the exporter, according to your mongodb config, like SSL support, ...
+    command: -mongodb.tls -mongodb.tls-ca /etc/certs/mycert.crt -mongodb.tls-private-key /etc/certs/mycert.pem
+    volumes:
+      - /etc/certs:/etc/certs
+    environment:
+      - MONGODB_URL=mongodb://<host>
+      # You can provide HTTP Auth, according to your mongodb config
+      - HTTP_AUTH=<user>:<password>
